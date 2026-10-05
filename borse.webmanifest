@@ -5,7 +5,7 @@
   "lang": "it",
   "description": "Configura la tua borsa a uncinetto e impara a farla con schemi facili e gratuiti a livelli.",
   "start_url": "./borse.html",
-  "scope": "./",
+  "scope": "./borse",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#2a2130",
