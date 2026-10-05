@@ -3,11 +3,14 @@ AGGIORNAMENTO DA TELEFONO - due app, senza cartelle
 1. Estrai questo zip sul telefono (app File -> tieni premuto sullo zip -> Estrai).
 2. Apri github.com/matteomurdaca-art/Crea -> Add file -> Upload files.
 3. Seleziona TUTTI i file estratti (anche quelli con lo stesso nome: li sostituiscono) -> Commit changes.
+   I vecchi file manifest.webmanifest, icon-192.png, icon-512.png, icon-maskable-512.png
+   e apple-touch-icon.png non servono piu': puoi lasciarli o cancellarli.
 4. Aspetta 1-2 minuti. I due link sono:
-   https://matteomurdaca-art.github.io/Crea/             gioielli
-   https://matteomurdaca-art.github.io/Crea/borse.html   borse
+   https://matteomurdaca-art.github.io/Crea/gioielli.html   gioielli
+   https://matteomurdaca-art.github.io/Crea/borse.html      borse
+   https://matteomurdaca-art.github.io/Crea/                pagina con tutte e due
 
 Per installarle: apri ogni link in Chrome -> menu tre puntini -> Installa app.
 
-Per cambiare nome del marchio, WhatsApp e prezzi: in index.html e borse.html
+Per cambiare nome del marchio, WhatsApp e prezzi: in gioielli.html e borse.html
 cerca "DA PERSONALIZZARE".

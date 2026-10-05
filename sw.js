@@ -1,7 +1,7 @@
 // Service worker: l'app funziona anche senza rete dopo la prima apertura.
 // Quando aggiorni index.html, cambia il numero di versione qui sotto.
-const VERSIONE = "crea-v4"; // crea
-const FILE = ["./", "apple-touch-icon.png", "borse-apple-touch-icon.png", "borse-icon-192.png", "borse-icon-512.png", "borse-icon-maskable-512.png", "borse.html", "borse.webmanifest", "icon-192.png", "icon-512.png", "icon-maskable-512.png", "index.html", "manifest.webmanifest"];
+const VERSIONE = "crea-v5"; // crea
+const FILE = ["./", "borse-apple-touch-icon.png", "borse-icon-192.png", "borse-icon-512.png", "borse-icon-maskable-512.png", "borse.html", "borse.webmanifest", "gioielli-apple-touch-icon.png", "gioielli-icon-192.png", "gioielli-icon-512.png", "gioielli-icon-maskable-512.png", "gioielli.html", "gioielli.webmanifest", "index.html"];
 self.addEventListener("install", e => { e.waitUntil(caches.open(VERSIONE).then(c => c.addAll(FILE))); self.skipWaiting(); });
 self.addEventListener("activate", e => { e.waitUntil(caches.keys().then(k => Promise.all(k.filter(n => n !== VERSIONE).map(n => caches.delete(n))))); self.clients.claim(); });
 self.addEventListener("fetch", e => {

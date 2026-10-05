@@ -1,0 +1,31 @@
+{
+  "id": "./gioielli.html",
+  "name": "Crea il tuo gioiello",
+  "short_name": "Gioielli",
+  "lang": "it",
+  "description": "Configura bracciali, collane e orecchini e impara a farli con lezioni gratuite a livelli.",
+  "start_url": "./gioielli.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#2a2130",
+  "theme_color": "#2a2130",
+  "icons": [
+    {
+      "src": "gioielli-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "gioielli-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "gioielli-icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
