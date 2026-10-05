@@ -1,0 +1,953 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#2a2130">
+<meta name="description" content="Configura la tua borsa a uncinetto e impara a farla con schemi facili e gratuiti a livelli.">
+<link rel="manifest" href="borse.webmanifest">
+<link rel="icon" href="borse-icon-192.png" type="image/png">
+<link rel="apple-touch-icon" href="borse-apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Borse">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}</style>
+<title>Crea la tua borsa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloock&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: banco da lavoro. Due schede: Crea (configuratore + vassoio di velluto) e Impara (percorso a livelli + lezione). */
+:root{
+  --bg:#eef0ec; --surface:#ffffff; --fg:#1e2624; --muted:#5b6864; --line:#d6dcd5;
+  --accent:#2f5d57; --accent-fg:#ffffff; --accent-soft:#e1ebe7; --gold:#9c7626;
+  --velvet:#2a2130; --velvet-2:#45344f; --velvet-fg:#efe6f2; --velvet-muted:#bfaecb;
+  --display:"Gloock", "Iowan Old Style", Georgia, serif;
+  --body:"Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --r:16px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#121716; --surface:#1b2221; --fg:#e6ece9; --muted:#9bada8; --line:#2f3b38;
+  --accent:#8cc5b9; --accent-fg:#10201d; --accent-soft:#22312d; --gold:#d6b061; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#121716; --surface:#1b2221; --fg:#e6ece9; --muted:#9bada8; --line:#2f3b38;
+  --accent:#8cc5b9; --accent-fg:#10201d; --accent-soft:#22312d; --gold:#d6b061; color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--fg);font:15px/1.55 var(--body);padding:0 16px}
+.wrap{max-width:1120px;margin:0 auto;padding-block:20px 120px;display:flex;flex-direction:column;gap:26px}
+
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.02em}
+.brand svg{width:34px;height:34px}
+.altra{font-size:13.5px;font-weight:600;color:var(--accent);text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:1px}
+.hero{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:24px;align-items:end}
+@media (max-width:820px){.hero{grid-template-columns:minmax(0,1fr)}}
+h1{font-family:var(--display);font-weight:400;font-size:clamp(34px,7vw,62px);line-height:1.02;margin:0;text-wrap:balance;letter-spacing:-.01em}
+h1 em{font-style:normal;color:var(--accent)}
+.lead{color:var(--muted);max-width:52ch;margin:0;font-size:16px}
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;list-style:none}
+.pills li{font-size:13px;font-weight:600;padding:6px 12px;border-radius:999px;background:var(--surface);border:1px solid var(--line)}
+
+.tabs{display:flex;gap:6px;padding:5px;background:var(--surface);border:1px solid var(--line);border-radius:999px;align-self:flex-start;position:sticky;top:calc(env(safe-area-inset-top,0px) + 10px);z-index:4;box-shadow:0 6px 18px -12px rgba(0,0,0,.35)}
+.tab{font:700 15px var(--body);border:0;background:transparent;color:var(--muted);padding:10px 22px;border-radius:999px;cursor:pointer;display:inline-flex;align-items:center;gap:8px}
+.tab[aria-selected="true"]{background:var(--velvet);color:var(--velvet-fg)}
+.tab:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.tab svg{width:18px;height:18px}
+
+.view{display:flex;flex-direction:column;gap:24px}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:24px;align-items:start}
+@media (max-width:820px){.grid{grid-template-columns:minmax(0,1fr)}}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:8px 20px}
+fieldset{border:0;margin:0;padding:18px 0;display:grid;grid-template-columns:32px minmax(0,1fr);gap:4px 12px;min-width:0;border-bottom:1px solid var(--line);transition:opacity .2s}
+fieldset:last-child{border-bottom:0}
+.num{grid-row:span 2;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font:600 13px var(--body);color:var(--accent);border:1.5px solid var(--accent);font-variant-numeric:tabular-nums}
+legend{float:left;padding:0;font-weight:700;font-size:15px;line-height:28px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;grid-column:2;min-width:0;margin-top:6px}
+.chip{position:relative}
+.chip input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+.chip span{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border:1px solid var(--line);border-radius:999px;background:var(--bg);font-weight:500;font-size:14px;cursor:pointer;transition:border-color .15s, background .15s}
+.chip span:hover{border-color:var(--muted)}
+.chip span small{color:var(--muted);font-weight:500;font-size:12.5px}
+.chip input:checked+span{border-color:var(--accent);background:var(--accent-soft);box-shadow:inset 0 0 0 1px var(--accent);font-weight:600}
+.chip input:focus-visible+span{outline:2px solid var(--accent);outline-offset:2px}
+.sw,.yarn{width:18px;height:18px;border-radius:50%;flex:none;box-shadow:0 1px 2px rgba(0,0,0,.35)}
+.chip.stone span{padding-left:8px}
+
+.tray{position:sticky;top:calc(env(safe-area-inset-top,0px) + 76px);background:radial-gradient(120% 90% at 30% 20%, var(--velvet-2), var(--velvet) 70%);color:var(--velvet-fg);border-radius:calc(var(--r) + 4px);padding:18px;display:flex;flex-direction:column;gap:14px;box-shadow:0 18px 40px -20px rgba(30,15,40,.6)}
+.tray-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.tray-head h2{font-family:var(--display);font-weight:400;font-size:22px;margin:0}
+.tray-head span{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--velvet-muted)}
+canvas{width:100%;max-width:100%;aspect-ratio:4/3;display:block;border-radius:12px}
+.cap{margin:0;font-size:14px;color:var(--velvet-muted)}
+.choice{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.opt{position:relative}
+.opt input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+.opt label{display:flex;flex-direction:column;gap:2px;padding:12px 14px;border-radius:12px;border:1px solid rgba(239,230,242,.22);cursor:pointer;height:100%}
+.opt b{font-family:var(--display);font-weight:400;font-size:28px;line-height:1.1;font-variant-numeric:tabular-nums}
+.opt small{font-size:12.5px;color:var(--velvet-muted)}
+.opt .t{font-size:13px;font-weight:700;letter-spacing:.04em}
+.opt input:checked+label{background:rgba(239,230,242,.1);border-color:var(--velvet-fg);box-shadow:inset 0 0 0 1px var(--velvet-fg)}
+.opt input:focus-visible+label{outline:2px solid var(--velvet-fg);outline-offset:2px}
+.addon{display:flex;gap:10px;align-items:center;padding:10px 12px;border-radius:12px;border:1px dashed rgba(239,230,242,.3);font-size:14px;cursor:pointer}
+.addon input{width:18px;height:18px;accent-color:#e3c27a;margin:0;flex:none}
+.addon b{margin-left:auto;font-weight:700;white-space:nowrap;font-variant-numeric:tabular-nums}
+.tray .note{color:var(--velvet-muted)}
+.btn{font:700 15px var(--body);padding:12px 18px;border-radius:12px;border:1px solid var(--accent);background:var(--accent);color:var(--accent-fg);cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-align:center}
+.btn.light{background:var(--velvet-fg);border-color:var(--velvet-fg);color:var(--velvet)}
+.btn.ghost{background:transparent;color:var(--accent)}
+.btn.small{font-size:14px;padding:9px 14px}
+.btn:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
+
+.below{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px}
+@media (max-width:820px){.below{grid-template-columns:minmax(0,1fr)}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:22px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.card h2{font-family:var(--display);font-weight:400;font-size:26px;margin:0}
+.card .sub{margin:-8px 0 0;color:var(--muted);font-size:14px}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;font-size:14.5px}
+td{padding:10px 4px;border-bottom:1px dashed var(--line);vertical-align:middle}
+tr:last-child td{border-bottom:0}
+td.q{text-align:right;font-weight:700;white-space:nowrap;color:var(--accent)}
+td .sw,td .yarn{display:inline-block;vertical-align:-3px;margin-right:8px}
+ol.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px;counter-reset:s}
+ol.steps li{counter-increment:s;display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:start}
+ol.steps li::before{content:counter(s);width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent);font-weight:700;font-size:14px}
+.first{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 14px;border-radius:12px;background:var(--accent-soft);font-size:14px;font-weight:600}
+.order{grid-column:1/-1}
+.order-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:18px}
+@media (max-width:820px){.order-grid{grid-template-columns:minmax(0,1fr)}}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-size:13px;font-weight:600;color:var(--muted)}
+input[type=text],textarea{width:100%;font:14px/1.5 var(--body);color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+input[type=text]:focus,textarea:focus{outline:2px solid var(--accent);outline-offset:1px}
+textarea{min-height:170px;resize:vertical}
+.btns{display:flex;flex-wrap:wrap;gap:10px}
+.note{font-size:12.5px;color:var(--muted);margin:0}
+.tag{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);border:1px solid currentColor;border-radius:4px;padding:0 5px;margin-left:4px;vertical-align:1px}
+.tray .tag,.kitbox .tag{color:#e3c27a}
+
+/* ===== Scuola ===== */
+.school{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:24px;align-items:start}
+@media (max-width:860px){.school{grid-template-columns:minmax(0,1fr)}}
+.path{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px 14px;position:sticky;top:calc(env(safe-area-inset-top,0px) + 76px);display:flex;flex-direction:column;gap:4px;min-width:0}
+.path h2{font-family:var(--display);font-weight:400;font-size:24px;margin:0 4px}
+.path > p{margin:0 4px 10px;color:var(--muted);font-size:13.5px}
+.path ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;position:relative}
+.path ol::before{content:"";position:absolute;left:25px;top:24px;bottom:24px;width:2px;background:var(--line)}
+.lv{position:relative;display:grid;grid-template-columns:36px minmax(0,1fr);gap:10px;align-items:center;width:100%;text-align:left;background:transparent;border:0;border-radius:12px;padding:8px;cursor:pointer;color:var(--fg);font:inherit}
+.lv:hover{background:var(--bg)}
+.lv:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.lv[aria-current="step"]{background:var(--accent-soft)}
+.lv .d{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:var(--surface);border:2px solid var(--line);font-weight:700;font-size:14px;position:relative;z-index:1;font-variant-numeric:tabular-nums}
+.lv[aria-current="step"] .d{border-color:var(--accent);color:var(--accent)}
+.lv.done .d{background:var(--accent);border-color:var(--accent);color:var(--accent-fg)}
+.lv b{display:block;font-size:14.5px;line-height:1.3}
+.lv small{color:var(--muted);font-size:12.5px;display:inline-flex;align-items:center;gap:6px}
+.dots{display:inline-flex;gap:3px;vertical-align:1px}
+.dots i{width:7px;height:7px;border-radius:50%;background:var(--line)}
+.dots i.on{background:var(--gold)}
+@media (max-width:860px){
+  .path{position:static}
+  .path ol{flex-direction:row;overflow-x:auto;gap:8px;padding-bottom:6px;scroll-snap-type:x mandatory}
+  .path ol::before{display:none}
+  .path li{flex:0 0 auto;scroll-snap-align:start}
+  .lv{width:236px;border:1px solid var(--line)}
+}
+.lesson{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:24px;display:flex;flex-direction:column;gap:22px;min-width:0;scroll-margin-top:80px}
+.lesson header{display:flex;flex-direction:column;gap:6px}
+.lvl{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:700;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.free{font-size:10.5px;letter-spacing:.08em;color:var(--accent-fg);background:var(--accent);border-radius:4px;padding:1px 6px}
+.lesson h3{font-family:var(--display);font-weight:400;font-size:clamp(28px,4.4vw,38px);line-height:1.08;margin:0;text-wrap:balance}
+.proj{margin:0;color:var(--muted);font-size:15px}
+.meta{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:6px 0 0;padding:0}
+.meta li{font-size:13px;padding:5px 11px;border-radius:999px;background:var(--bg);border:1px solid var(--line);display:inline-flex;align-items:center;gap:6px}
+.lesson-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:20px;align-items:start}
+@media (max-width:960px){.lesson-grid{grid-template-columns:minmax(0,1fr)}}
+.fig{margin:0;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.fig svg{width:100%;height:auto;display:block}
+.fig figcaption{font-size:13.5px;color:var(--muted);display:flex;flex-direction:column;gap:8px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 12px}
+.legend span{display:inline-flex;align-items:center;gap:4px;font-size:12.5px;color:var(--fg)}
+.legend svg{width:18px;height:18px}
+.need h4,.oops h4{margin:0 0 8px;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.need ul,.oops ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:5px}
+.terms{display:flex;flex-wrap:wrap;gap:6px}
+.term{display:inline-flex;align-items:center;gap:6px;font-size:13px;padding:5px 10px;border-radius:8px;background:var(--bg);border:1px solid var(--line);cursor:help}
+.term svg{width:18px;height:18px;flex:none}
+.prog{display:flex;align-items:center;gap:12px;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.prog .track{flex:1;height:8px;border-radius:99px;background:var(--bg);border:1px solid var(--line);overflow:hidden}
+.prog .track i{display:block;height:100%;background:var(--accent);transition:width .25s}
+ol.check{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+ol.check li{border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:10px;transition:background .2s}
+ol.check li.ok-done{background:var(--accent-soft);border-color:transparent}
+ol.check li.ok-done .txt{color:var(--muted)}
+ol.check label{display:grid;grid-template-columns:22px 22px minmax(0,1fr);gap:10px;align-items:start;cursor:pointer;font-size:15px}
+ol.check input{width:20px;height:20px;margin:2px 0 0;accent-color:var(--accent)}
+ol.check .n{font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums;line-height:1.55}
+.ctrl{margin:0 0 0 64px;font-size:14px;padding:9px 12px;border-radius:8px;background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--gold)}
+.ctrl b:first-child{color:var(--gold);text-transform:uppercase;font-size:11.5px;letter-spacing:.08em;margin-right:6px}
+@media (max-width:560px){.ctrl{margin-left:0}}
+abbr.g{text-decoration:none;font-weight:700;white-space:nowrap;display:inline-flex;align-items:center;gap:3px;color:var(--accent);cursor:help}
+abbr.g svg{width:15px;height:15px}
+.oops{border-top:1px solid var(--line);padding-top:18px}
+.kitbox{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;align-items:center;padding:18px;border-radius:14px;background:radial-gradient(120% 120% at 20% 0%, var(--velvet-2), var(--velvet));color:var(--velvet-fg)}
+.kitbox p{margin:0;font-size:13.5px;color:var(--velvet-muted)}
+.kitbox b{font-family:var(--display);font-weight:400;font-size:28px;line-height:1.2;font-variant-numeric:tabular-nums}
+@media (max-width:560px){.kitbox{grid-template-columns:minmax(0,1fr)}}
+.lesson-foot{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.gloss td{vertical-align:top}
+.gloss td.sym{width:40px;text-align:center}
+.gloss td.sym svg{width:26px;height:26px}
+.gloss .muted{color:var(--muted);font-size:13.5px}
+
+/* Schemi disegnati */
+.c-s{stroke:var(--fg);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.c-a{stroke:var(--accent);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.c-f{fill:var(--fg)}
+.c-af{fill:var(--accent)}
+.c-g{stroke:var(--line);fill:none;stroke-width:1.2}
+.c-d{stroke:var(--muted);fill:none;stroke-width:1.4;stroke-dasharray:4 4}
+.c-t{fill:var(--muted);font:600 11.5px var(--body)}
+.c-ta{fill:var(--accent);font:700 12px var(--body)}
+.c-w{stroke:var(--muted);fill:none;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.c-bead{fill:var(--accent-soft);stroke:var(--accent);stroke-width:1.8}
+.c-fill{fill:var(--accent-soft);stroke:var(--fg);stroke-width:1.7}
+.c-panel{fill:var(--surface);stroke:var(--line)}
+
+.bar{display:none}
+@media (max-width:820px){
+  .tray{position:static}
+  .tabs{align-self:stretch;justify-content:center}
+  .tab{flex:1;justify-content:center;padding:10px 12px}
+  .bar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:5;padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));background:var(--velvet);color:var(--velvet-fg);align-items:center;justify-content:space-between;gap:12px;box-shadow:0 -8px 24px -12px rgba(0,0,0,.5)}
+  .bar b{font-family:var(--display);font-weight:400;font-size:24px;font-variant-numeric:tabular-nums}
+  .bar small{display:block;font-size:12px;color:var(--velvet-muted)}
+}
+@media (prefers-reduced-motion: reduce){*{transition:none!important}}
+
+/* Borse: stesso sistema, accento prugna-rosa (filato) al posto del verde-giada */
+:root{--accent:#8a3d5c; --accent-fg:#ffffff; --accent-soft:#f3e4ea}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--accent:#e7a2bf; --accent-fg:#2a1320; --accent-soft:#3a2430}}
+:root[data-theme="dark"]{--accent:#e7a2bf; --accent-fg:#2a1320; --accent-soft:#3a2430}
+
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="top">
+    <div class="brand">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" fill="#2a2130"/><path d="M14 15v-2.5a6 6 0 0 1 12 0V15" fill="none" stroke="#efe6d6" stroke-width="2.4" stroke-linecap="round"/><path d="M9.5 15h21l-2 15h-17z" fill="#93a98a"/><path d="M12 19h16M12.5 23h15M13 27h14" stroke="#efe6d6" stroke-width="1.2" stroke-dasharray="1.6 1.6"/></svg>
+      <span id="brandName"></span>
+    </div>
+    <a class="altra" id="altra" hidden></a>
+  </div>
+
+  <section class="hero">
+    <h1>La tua borsa <em>a uncinetto</em>, anche se parti da zero.</h1>
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <p class="lead">Disegna la borsa con colori e filati veri, oppure impara a farla: schemi facili e gratuiti, dal primo punto alla borsa a secchiello, con il conteggio delle maglie a ogni passo.</p>
+      <ul class="pills"><li>Schemi facili gratis</li><li>6 livelli dal primo punto</li><li>Kit con il filato giusto</li></ul>
+    </div>
+  </section>
+
+  <div class="tabs" id="tabs" role="tablist" aria-label="Sezioni">
+    <button class="tab" role="tab" id="tab-crea" aria-controls="crea" type="button"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M6.5 7V5.5a3.5 3.5 0 0 1 7 0V7" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M3.5 7h13l-1.2 10H4.7z" fill="currentColor"/></svg>Crea</button>
+    <button class="tab" role="tab" id="tab-impara" aria-controls="impara" type="button"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M2 4.5c2.6-.9 5.2-.6 8 1v11c-2.8-1.6-5.4-1.9-8-1zM18 4.5c-2.6-.9-5.2-.6-8 1v11c2.8-1.6 5.4-1.9 8-1z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>Impara gratis</button>
+  </div>
+
+  <section class="view" id="crea" role="tabpanel" aria-labelledby="tab-crea">
+    <div class="grid">
+      <form class="panel" onsubmit="return false">
+        <fieldset><span class="num">1</span><legend>Modello</legend><div class="chips" id="b-modello"></div></fieldset>
+        <fieldset><span class="num">2</span><legend>Filato</legend><div class="chips" id="b-filato"></div></fieldset>
+        <fieldset><span class="num">3</span><legend>Punto</legend><div class="chips" id="b-punto"></div></fieldset>
+        <fieldset><span class="num">4</span><legend>Colore principale</legend><div class="chips" id="b-colore"></div></fieldset>
+        <fieldset><span class="num">5</span><legend>Colore del bordo</legend><div class="chips" id="b-bordo"></div></fieldset>
+        <fieldset><span class="num">6</span><legend>Manici</legend><div class="chips" id="b-manico"></div></fieldset>
+        <fieldset><span class="num">7</span><legend>Fodera interna</legend><div class="chips" id="b-fodera"></div></fieldset>
+      </form>
+      <aside class="tray" aria-label="Anteprima e prezzo della borsa">
+        <div class="tray-head"><h2>La tua borsa</h2><span id="b-dim"></span></div>
+        <canvas id="b-cv" width="800" height="600" role="img" aria-label="Anteprima della borsa"></canvas>
+        <p class="cap" id="b-cap"></p>
+        <div class="choice" role="radiogroup" aria-label="Formula">
+          <div class="opt"><input type="radio" name="b-formula" id="b-f-kit" value="kit"><label for="b-f-kit"><span class="t">Kit con schema</span><b id="b-pKit">–</b><small>filato, accessori, schema</small></label></div>
+          <div class="opt"><input type="radio" name="b-formula" id="b-f-fin" value="fin"><label for="b-f-fin"><span class="t">La facciamo noi</span><b id="b-pFin">–</b><small id="b-tempi">su ordinazione</small></label></div>
+        </div>
+        <label class="addon" for="b-set"><input type="checkbox" id="b-set"><span>Aggiungi orecchini abbinati, nei colori della borsa</span><b id="b-pSet">–</b></label>
+        <a class="btn light" href="#b-ordina">Vai all'ordine</a>
+        <p class="note">Prezzi e tempi di esempio <span class="tag">da tarare</span></p>
+      </aside>
+    </div>
+    <div class="below">
+      <section class="card"><h2>Cosa c'è nel kit</h2><p class="sub">Gomitoli calcolati su modello, punto e filato.</p><div style="overflow-x:auto"><table><tbody id="b-kit"></tbody></table></div></section>
+      <section class="card"><h2>Come si lavora</h2><p class="sub" id="b-tools"></p><ol class="steps" id="b-steps"></ol>
+        <div class="first"><span>Mai preso in mano un uncinetto? Parti dal livello 1.</span><button class="btn small" type="button" data-goto="impara">Impara gratis</button></div></section>
+      <section class="card order" id="b-ordina">
+        <h2>Ordina la borsa</h2>
+        <p class="sub">Scrivi nome e note: il messaggio si compila da solo. Copialo e mandalo su WhatsApp o Instagram.</p>
+        <div class="order-grid">
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <div class="field"><label for="b-nome">Il tuo nome</label><input type="text" id="b-nome" autocomplete="name" placeholder="Es. Giulia"></div>
+            <div class="field"><label for="b-nota">Note</label><input type="text" id="b-nota" placeholder="Es. iniziale ricamata, data di consegna"></div>
+            <div class="btns"><button class="btn" type="button" data-copy="b">Copia messaggio</button><a class="btn ghost" id="b-wa" target="_blank" rel="noopener" hidden>Apri WhatsApp</a></div>
+            <p class="note" id="b-copiato" aria-live="polite"></p>
+          </div>
+          <div class="field"><label for="b-msg">Messaggio</label><textarea id="b-msg" readonly></textarea></div>
+        </div>
+      </section>
+    </div>
+  </section>
+
+  <section class="view" id="impara" role="tabpanel" aria-labelledby="tab-impara" hidden>
+    <div class="school">
+      <nav class="path" aria-label="Livelli della scuola">
+        <h2>La scuola</h2>
+        <p id="s-intro"></p>
+        <ol id="s-path"></ol>
+      </nav>
+      <div id="s-lesson" style="min-width:0"></div>
+    </div>
+    <div class="below">
+      <section class="card gloss">
+        <h2 id="s-gloss-title"></h2>
+        <p class="sub" id="s-gloss-sub"></p>
+        <div style="overflow-x:auto"><table><tbody id="s-gloss"></tbody></table></div>
+      </section>
+      <section class="card" id="s-ordina">
+        <h2>Ordina un kit</h2>
+        <p class="sub">Le lezioni sono gratis. Se vuoi i materiali giusti già pronti, ordina il kit del livello: <b id="s-kitname"></b></p>
+        <div class="field"><label for="s-nome">Il tuo nome</label><input type="text" id="s-nome" autocomplete="name" placeholder="Es. Giulia"></div>
+        <div class="field"><label for="s-nota">Note</label><input type="text" id="s-nota" placeholder="Es. colore preferito, ritiro al mercatino"></div>
+        <div class="field"><label for="s-msg">Messaggio</label><textarea id="s-msg" readonly></textarea></div>
+        <div class="btns"><button class="btn" type="button" data-copy="s">Copia messaggio</button><a class="btn ghost" id="s-wa" target="_blank" rel="noopener" hidden>Apri WhatsApp</a></div>
+        <p class="note" id="s-copiato" aria-live="polite"></p>
+      </section>
+    </div>
+
+  </section>
+</div>
+
+<div class="bar">
+  <div><small id="barLabel"></small><b id="barPrice">–</b></div>
+  <a class="btn light" id="barGo" href="#b-ordina">Ordina</a>
+</div>
+
+<script>
+// ===================== DA PERSONALIZZARE =====================
+const MARCHIO = "Il tuo laboratorio";   // nome del marchio
+const WHATSAPP = "";   // es. "393401234567"; vuoto = nasconde il pulsante
+const ALTRA = {"label": "Fa anche gioielli →", "href": "./"};
+
+// ===================== UTILITÀ COMUNI =====================
+const $ = id => document.getElementById(id);
+const eur = v => v.toLocaleString("it-IT",{style:"currency",currency:"EUR"});
+const fine = x => Math.max(Math.ceil(x)-0.1, 4.9);
+function shade(hex,p){
+  const n=parseInt(hex.slice(1),16); const ch=[n>>16,n>>8&255,n&255];
+  return "rgb("+ch.map(v=>Math.max(0,Math.min(255,Math.round(p<0?v*(1+p):v+(255-v)*p)))).join(",")+")";
+}
+const swatch = c => `<i class="sw" style="background:radial-gradient(circle at 35% 30%, rgba(255,255,255,.9) 0 10%, ${c} 38%, ${shade(c,-.45)} 100%)"></i>`;
+const yarnSw = c => `<i class="yarn" style="background:repeating-linear-gradient(115deg, ${c} 0 3px, ${shade(c,-.18)} 3px 5px)"></i>`;
+function store(k,v){
+  try{ if(v===undefined) return JSON.parse(localStorage.getItem(k)||"null"); localStorage.setItem(k,JSON.stringify(v)); }
+  catch(e){ return null; }
+}
+const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const dots = n => `<span class="dots" role="img" aria-label="Difficoltà ${n} su 5">${[1,2,3,4,5].map(i=>`<i class="${i<=n?"on":""}"></i>`).join("")}</span>`;
+
+function chips(id, opts, st, key, opt={}){
+  const el=$(id); el.innerHTML="";
+  Object.entries(opts).forEach(([k,v])=>{
+    const lab=document.createElement("label"); lab.className="chip"+(opt.sw?" stone":"");
+    const inp=document.createElement("input"); inp.type="radio"; inp.name=id; inp.value=k; inp.id=id+"-"+k.replace(/\W/g,"");
+    inp.checked = st[key]===k;
+    inp.addEventListener("change",()=>{ st[key]=k; opt.onChange&&opt.onChange(); });
+    const sp=document.createElement("span");
+    sp.innerHTML=(opt.sw?opt.sw(v):"")+(typeof v==="string"?v:v.label)+(opt.extra?` <small>${opt.extra(k,v)}</small>`:"");
+    lab.append(inp,sp); el.append(lab);
+  });
+}
+
+// ===================== VASSOIO DI VELLUTO =====================
+function trayBg(ctx,W,H){
+  const g=ctx.createRadialGradient(W*.35,H*.3,20,W*.5,H*.5,W*.75);
+  g.addColorStop(0,"#4a3955"); g.addColorStop(1,"#211a27");
+  ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
+  let seed=7; const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
+  for(let i=0;i<900;i++){ ctx.fillStyle=`rgba(255,255,255,${rnd()*.035})`; ctx.fillRect(rnd()*W,rnd()*H,1.5,1.5); }
+}
+const anims={};
+function fadeDraw(cv,drawFn){
+  const ctx=cv.getContext("2d");
+  if(reduce){ drawFn(ctx); return; }
+  const start=performance.now(); cancelAnimationFrame(anims[cv.id]);
+  const step=t=>{ const p=Math.min(1,(t-start)/260); drawFn(ctx);
+    if(p<1){ ctx.globalAlpha=1-p; trayBg(ctx,cv.width,cv.height); ctx.globalAlpha=1; anims[cv.id]=requestAnimationFrame(step); } };
+  anims[cv.id]=requestAnimationFrame(step);
+}
+
+// ===================== ORDINE =====================
+function setMsg(p,txt){
+  $(p+"-msg").value=txt;
+  const wa=$(p+"-wa"); if(WHATSAPP){ wa.hidden=false; wa.href=`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(txt)}`; }
+}
+document.addEventListener("click",e=>{
+  const b=e.target.closest("[data-copy]");
+  if(b){
+    const p=b.dataset.copy, ta=$(p+"-msg"), msg=$(p+"-copiato");
+    navigator.clipboard.writeText(ta.value).then(()=>msg.textContent="Messaggio copiato.")
+      .catch(()=>{ ta.focus(); ta.select(); msg.textContent="Testo selezionato: tieni premuto e scegli Copia."; });
+  }
+  const g=e.target.closest("[data-goto]");
+  if(g){ setTab(g.dataset.goto); $("tabs").scrollIntoView({behavior:reduce?"auto":"smooth",block:"start"}); }
+});
+
+// ===================== SCHEDE CREA / IMPARA =====================
+let TAB="crea", TABKEY="tab";
+function setTab(t){
+  TAB=t; store(TABKEY,t);
+  ["crea","impara"].forEach(x=>{ $(x).hidden=x!==t; const b=$("tab-"+x); b.setAttribute("aria-selected",String(x===t)); b.tabIndex=x===t?0:-1; });
+  updateBar();
+}
+function setupTabs(key){
+  TABKEY=key+"-tab";
+  let t=store(TABKEY)||"crea"; const h=location.hash.slice(1);
+  if(h==="crea"||h==="impara") t=h;
+  $("tab-crea").addEventListener("click",()=>setTab("crea"));
+  $("tab-impara").addEventListener("click",()=>setTab("impara"));
+  $("tabs").addEventListener("keydown",e=>{
+    if(e.key==="ArrowRight"||e.key==="ArrowLeft"){ const n=TAB==="crea"?"impara":"crea"; setTab(n); $("tab-"+n).focus(); }
+  });
+  setTab(t);
+}
+function updateBar(){
+  if(typeof barState!=="function") return;
+  const s=barState();
+  $("barLabel").textContent=s.label; $("barPrice").textContent=eur(s.price);
+  $("barGo").setAttribute("href",s.href);
+}
+function setupHeader(){
+  $("brandName").textContent=MARCHIO;
+  if(ALTRA && ALTRA.href){ const a=$("altra"); a.hidden=false; a.href=ALTRA.href; a.textContent=ALTRA.label; }
+}
+
+// ===================== SCUOLA A LIVELLI =====================
+function initSchool(o){
+  const L=o.lessons, K=o.key+"-scuola";
+  const S=Object.assign({cur:L[0].id, done:{}, kit:null}, store(K)||{});
+  if(!L.some(l=>l.id===S.cur)) S.cur=L[0].id;
+  const save=()=>store(K,S);
+  const byId=id=>L.find(l=>l.id===id)||L[0];
+  const doneOf=l=>S.done[l.id]||[];
+  const complete=l=>l.passi.every((_,i)=>doneOf(l).includes(i));
+  const fmt=t=>o.fmt(t).replace(/\*\*(.+?)\*\*/g,"<b>$1</b>");
+  $("s-intro").textContent=o.intro;
+  $("s-gloss-title").textContent=o.glossTitle;
+  $("s-gloss-sub").textContent=o.glossSub;
+  $("s-gloss").innerHTML=o.glossRows();
+
+  function path(){
+    $("s-path").innerHTML=L.map((l,i)=>`<li><button type="button" class="lv${complete(l)?" done":""}" data-lv="${l.id}"${l.id===S.cur?' aria-current="step"':""}><span class="d">${complete(l)?"✓":i+1}</span><span><b>${l.titolo}</b><small>${l.tempo} ${dots(l.diff)}</small></span></button></li>`).join("");
+    $("s-path").querySelectorAll("[data-lv]").forEach(b=>b.addEventListener("click",()=>{
+      S.cur=b.dataset.lv; save(); render(); $("s-lesson").scrollIntoView({behavior:reduce?"auto":"smooth",block:"start"});
+    }));
+  }
+  function lesson(){
+    const l=byId(S.cur), i=L.indexOf(l), d=doneOf(l), pct=Math.round(d.length/l.passi.length*100);
+    $("s-lesson").innerHTML=`<article class="lesson" id="s-art">
+      <header>
+        <span class="lvl">Livello ${i+1} di ${L.length} <span class="free">Gratis</span></span>
+        <h3>${l.titolo}</h3>
+        <p class="proj">${l.progetto}</p>
+        <ul class="meta"><li>Tempo: ${l.tempo}</li><li>Difficoltà ${dots(l.diff)}</li></ul>
+      </header>
+      <div class="lesson-grid">
+        <figure class="fig">${l.fig()}<figcaption><span>${fmt(l.figCap)}</span>${o.legend?o.legend(l):""}</figcaption></figure>
+        <div class="need"><h4>Ti serve</h4><ul>${l.serve.map(x=>`<li>${x}</li>`).join("")}</ul>
+          <h4 style="margin-top:18px">Parole nuove</h4><div class="terms">${l.parole.map(o.term).join("")}</div></div>
+      </div>
+      <div class="prog"><div class="track"><i id="s-bar" style="width:${pct}%"></i></div><span id="s-count">${d.length} di ${l.passi.length} passi fatti</span></div>
+      <ol class="check">${l.passi.map((p,k)=>`<li class="${d.includes(k)?"ok-done":""}"><label for="s-${l.id}-${k}"><input type="checkbox" id="s-${l.id}-${k}" data-k="${k}"${d.includes(k)?" checked":""}><span class="n">${k+1}</span><span class="txt">${fmt(p.t)}</span></label>${p.ok?`<p class="ctrl"><b>Controllo</b>${fmt(p.ok)}</p>`:""}</li>`).join("")}</ol>
+      <div class="oops"><h4>Se qualcosa va storto</h4><ul>${l.errori.map(x=>`<li>${fmt(x)}</li>`).join("")}</ul></div>
+      <div class="kitbox"><div><p>Kit del livello ${i+1} <span class="tag">prezzo di esempio</span></p><b>${eur(l.kit.prezzo)}</b><p>${l.kit.cont}</p></div><button class="btn light" type="button" id="s-kitbtn">Voglio questo kit</button></div>
+      <div class="lesson-foot">${i>0?`<button class="btn ghost small" type="button" data-nav="-1">Torna al livello ${i}</button>`:"<span></span>"}${i<L.length-1?`<button class="btn small" type="button" data-nav="1">Livello ${i+2}: ${L[i+1].titolo}</button>`:`<span class="note">Hai completato il percorso.</span>`}</div>
+    </article>`;
+    $("s-lesson").querySelectorAll("input[data-k]").forEach(cb=>cb.addEventListener("change",()=>{
+      const k=+cb.dataset.k, set=new Set(doneOf(l)); cb.checked?set.add(k):set.delete(k);
+      S.done[l.id]=[...set]; save();
+      cb.closest("li").classList.toggle("ok-done",cb.checked);
+      $("s-bar").style.width=Math.round(set.size/l.passi.length*100)+"%";
+      $("s-count").textContent=`${set.size} di ${l.passi.length} passi fatti`;
+      path();
+    }));
+    $("s-kitbtn").addEventListener("click",()=>{ S.kit=l.id; save(); msg(); $("s-ordina").scrollIntoView({behavior:reduce?"auto":"smooth",block:"start"}); });
+    $("s-lesson").querySelectorAll("[data-nav]").forEach(b=>b.addEventListener("click",()=>{
+      S.cur=L[i+(+b.dataset.nav)].id; save(); render(); $("s-art").scrollIntoView({behavior:reduce?"auto":"smooth",block:"start"});
+    }));
+  }
+  function msg(){
+    const l=byId(S.kit||S.cur), i=L.indexOf(l);
+    const nome=$("s-nome").value.trim(), nota=$("s-nota").value.trim();
+    setMsg("s",`Ciao ${MARCHIO}! ${nome?"Sono "+nome+". ":""}Vorrei il kit del livello ${i+1}, "${l.titolo}": ${eur(l.kit.prezzo)}.\nContiene: ${l.kit.cont}.${nota?"\n\nNote: "+nota:""}`);
+    $("s-kitname").textContent=`Livello ${i+1}: ${l.titolo}`;
+    updateBar();
+  }
+  function render(){ path(); lesson(); if(!S.kit) msg(); }
+  ["s-nome","s-nota"].forEach(id=>$(id).addEventListener("input",msg));
+  render(); msg();
+  return { kit:()=>{ const l=byId(S.kit||S.cur); return {n:L.indexOf(l)+1, l}; } };
+}
+
+function registerSW(){
+  if("serviceWorker" in navigator && location.protocol==="https:" && !/claude/.test(location.hostname)){
+    navigator.serviceWorker.register("sw.js").catch(()=>{});
+  }
+}
+
+// ===================== BORSE: DA PERSONALIZZARE =====================
+const TARIFFA_ORA = 10;        // € all'ora per le borse fatte da noi
+const ORE_AL_GIORNO = 2;       // ore di uncinetto al giorno (per i tempi di consegna)
+const PREZZO_SET = 18;         // orecchini abbinati
+const MODELLI = {
+  shopper:{label:"Shopper", w:35, h:30, base:[35,10]},
+  secchiello:{label:"A secchiello", w:24, h:26, base:[24,24]},
+  pochette:{label:"Pochette", w:24, h:15, base:[24,4]},
+  baguette:{label:"Baguette", w:28, h:14, base:[28,6]}
+};
+// g = grammi a gomitolo, m = prezzo a gomitolo, peso = consumo, vel = velocità di lavoro
+const FILATI = {
+  cotone:{label:"Cotone", g:50, m:3.5, peso:1, vel:1, ferro:"3,5 mm"},
+  fettuccia:{label:"Fettuccia", g:250, m:6.5, peso:2.4, vel:1.9, ferro:"8 mm"},
+  rafia:{label:"Rafia", g:40, m:4.5, peso:.85, vel:1.1, ferro:"4 mm"}
+};
+// gr = grammi per 100 cm², cmh = cm² lavorati all'ora (cotone)
+const PUNTI = {
+  pieno:{label:"Punto alto pieno", gr:9, cmh:220},
+  granny:{label:"Quadrati della nonna", gr:8, cmh:200},
+  rete:{label:"Punto rete", gr:5, cmh:330}
+};
+const COLORI = {
+  panna:{label:"Panna", c:"#efe6d6"}, sabbia:{label:"Sabbia", c:"#d6c09b"}, cotto:{label:"Cotto", c:"#bf6e4c"},
+  senape:{label:"Senape", c:"#d6a23a"}, salvia:{label:"Salvia", c:"#93a98a"}, petrolio:{label:"Petrolio", c:"#2f6068"},
+  cipria:{label:"Cipria", c:"#e2b5b0"}, notte:{label:"Blu notte", c:"#2c3654"}, nero:{label:"Nero", c:"#2b2a2c"}
+};
+const MANICI = {
+  corti:{label:"Corti a uncinetto", p:0}, tracolla:{label:"Tracolla lunga", p:0},
+  legno:{label:"Manici in legno", p:6.5}, catenella:{label:"Catenella dorata", p:5.5}
+};
+const FODERE = {no:{label:"Senza fodera"}, si:{label:"Con fodera in cotone"}};
+
+const KEY="borse";
+const B = Object.assign({modello:"shopper", filato:"cotone", punto:"pieno", colore:"salvia", bordo:"panna", manico:"corti", fodera:"no", formula:"fin", set:false}, store(KEY)||{});
+let school=null, bState={label:"",price:0};
+
+// ===================== CONFIGURATORE =====================
+function bForm(){
+  chips("b-modello", MODELLI, B, "modello", {extra:(k,v)=>`${v.w}×${v.h} cm`, onChange:bRender});
+  chips("b-filato", FILATI, B, "filato", {onChange:bRender});
+  chips("b-punto", PUNTI, B, "punto", {onChange:bRender});
+  chips("b-colore", COLORI, B, "colore", {sw:v=>yarnSw(v.c), onChange:bRender});
+  chips("b-bordo", COLORI, B, "bordo", {sw:v=>yarnSw(v.c), onChange:bRender});
+  chips("b-manico", MANICI, B, "manico", {onChange:bRender});
+  chips("b-fodera", FODERE, B, "fodera", {onChange:bRender});
+}
+function bCalc(){
+  const M=MODELLI[B.modello], F=FILATI[B.filato], P=PUNTI[B.punto];
+  const area = 2*M.w*M.h + M.base[0]*M.base[1] + (B.modello==="pochette"?M.w*10:0);
+  const strap = B.manico==="tracolla"?110*3:(B.manico==="corti"?2*45*3:0);
+  const grammi = (area+strap)/100*P.gr*F.peso;
+  const gBordo = grammi*.18, gMain = grammi-gBordo;
+  const gomMain = Math.max(1,Math.ceil(gMain/F.g*1.1)), gomBordo = Math.max(1,Math.ceil(gBordo/F.g*1.1));
+  const ore = Math.max(2, Math.round((area+strap)/(P.cmh*F.vel) + (B.punto==="granny"?2:0) + (B.fodera==="si"?1.5:0) + 1));
+  const quadrati = Math.round(area/100);
+  const R=[
+    {n:`Filato ${F.label.toLowerCase()} ${COLORI[B.colore].label.toLowerCase()} (${F.g} g)`, q:gomMain, p:gomMain*F.m, sw:yarnSw(COLORI[B.colore].c)},
+    {n:`Filato ${F.label.toLowerCase()} ${COLORI[B.bordo].label.toLowerCase()} per il bordo (${F.g} g)`, q:gomBordo, p:gomBordo*F.m, sw:yarnSw(COLORI[B.bordo].c)},
+    {n:`Uncinetto ${F.ferro}`, q:1, p:3},
+    {n:"Marcapunti", q:10, p:1},
+    {n:"Ago da lana", q:1, p:.5}
+  ];
+  if(B.manico==="legno") R.push({n:"Coppia di manici in legno", q:1, p:MANICI.legno.p});
+  if(B.manico==="catenella") R.push({n:"Catenella dorata 110 cm con moschettoni", q:1, p:MANICI.catenella.p, sw:swatch("#c9a24a")});
+  if(B.modello==="secchiello") R.push({n:"Cordoncino per la chiusura", q:1, p:1.2});
+  if(B.modello==="pochette") R.push({n:"Bottone in legno", q:1, p:.6});
+  if(B.fodera==="si") R.push({n:"Tessuto di cotone per fodera (50×70 cm)", q:1, p:4});
+  R.push({n:"Schema illustrato con maglie e giri", q:1, p:0});
+  const mat=R.reduce((a,r)=>a+r.p,0);
+  return {R, pKit:fine(mat*1.8+6), pFin:fine(mat+ore*TARIFFA_ORA+5), ore, quadrati, giorni:Math.ceil(ore/ORE_AL_GIORNO)};
+}
+function bPassi(c){
+  const M=MODELLI[B.modello], F=FILATI[B.filato];
+  const tools=`Ti servono: uncinetto ${F.ferro}, ago da lana, marcapunti, forbici${B.fodera==="si"?", ago e filo da cucito":""}.`;
+  const s=[];
+  if(B.punto==="granny"){
+    s.push(`Lavora ${c.quadrati} quadrati della nonna da 10×10 cm nel colore principale, chiudendo l'ultimo giro di ognuno nel colore del bordo.`);
+    s.push("Blocca i quadrati: inumidiscili, fissali con gli spilli alla misura giusta e lasciali asciugare.");
+    s.push("Disponi i quadrati come nello schema e cucili insieme con l'ago da lana, a punto materasso.");
+  } else if(B.modello==="secchiello"){
+    s.push("Inizia con l'anello magico e lavora il fondo rotondo a giri, con gli aumenti indicati nello schema.");
+    s.push(`Quando il fondo misura ${M.base[0]} cm di diametro, sali con i giri del corpo senza aumenti.`);
+    s.push(`Continua a ${PUNTI[B.punto].label.toLowerCase()} fino a ${M.h} cm di altezza.`);
+  } else {
+    s.push(`Avvia una catenella di ${M.w} cm e lavora il fondo ovale a giri, fino a ${M.base[1]} cm di larghezza.`);
+    s.push(`Sali con i giri del corpo a ${PUNTI[B.punto].label.toLowerCase()}, senza aumenti.`);
+    s.push(`Continua fino a ${M.h} cm di altezza, misurando ogni 5 giri.`);
+  }
+  s.push("Cambia colore e lavora 3 giri di bordo a maglia bassa, per dare forma alla bocca della borsa.");
+  if(B.modello==="secchiello") s.push("Nel penultimo giro lascia dei passanti ogni 2 cm e infila il cordoncino.");
+  if(B.modello==="pochette") s.push("Prosegui su un solo lato per 10 cm per la pattina, fai un'asola al centro e cuci il bottone.");
+  if(B.manico==="corti") s.push("Lavora due strisce da 45 cm a maglia bassa e cucile all'interno, a 8 cm dai lati.");
+  if(B.manico==="tracolla") s.push("Lavora una striscia da 110 cm a maglia bassa e cucila ai due lati della borsa.");
+  if(B.manico==="legno") s.push("Avvolgi l'ultimo giro attorno ai manici in legno e fissalo con punti bassi, un lato per volta.");
+  if(B.manico==="catenella") s.push("Lavora due piccole asole ai lati e aggancia la catenella con i moschettoni.");
+  if(B.fodera==="si") s.push("Cuci la fodera a sacchetto alla misura della borsa, inseriscila e fissala sotto il bordo a punto nascosto.");
+  s.push("Nascondi tutti i fili con l'ago da lana e dai forma alla borsa con un po' di vapore, senza appoggiare il ferro.");
+  return {tools,s};
+}
+function bodyPath(ctx){
+  ctx.beginPath();
+  switch(B.modello){
+    case "shopper": ctx.moveTo(240,240); ctx.lineTo(560,240); ctx.lineTo(585,520); ctx.quadraticCurveTo(400,535,215,520); ctx.closePath(); break;
+    case "secchiello": ctx.moveTo(275,230); ctx.lineTo(525,230); ctx.lineTo(545,450); ctx.quadraticCurveTo(545,525,400,525); ctx.quadraticCurveTo(255,525,255,450); ctx.closePath(); break;
+    case "pochette": ctx.roundRect(200,260,400,230,18); break;
+    case "baguette": ctx.roundRect(180,300,440,170,60); break;
+  }
+}
+const BOX={shopper:[215,240,585,530],secchiello:[255,230,545,525],pochette:[200,260,600,490],baguette:[180,300,620,470]};
+function texture(ctx,col,x0,y0,x1,y1){
+  const sp=FILATI[B.filato].peso>2?1.6:(B.filato==="rafia"?1.1:1);
+  const dark=shade(col,-.28), light=shade(col,.25);
+  if(B.punto==="pieno"){
+    ctx.fillStyle=col; ctx.fillRect(x0,y0,x1-x0,y1-y0);
+    const rh=13*sp, cw=11*sp;
+    for(let y=y0,row=0;y<y1;y+=rh,row++){
+      for(let x=x0+(row%2?cw/2:0);x<x1;x+=cw){
+        ctx.strokeStyle=dark; ctx.lineWidth=1.6*sp; ctx.beginPath(); ctx.moveTo(x,y+2); ctx.lineTo(x+cw/2,y+rh-2); ctx.lineTo(x+cw,y+2); ctx.stroke();
+        ctx.strokeStyle=light; ctx.lineWidth=.8*sp; ctx.beginPath(); ctx.moveTo(x+1,y+1); ctx.lineTo(x+cw/2,y+rh-4); ctx.stroke();
+      }
+    }
+  } else if(B.punto==="rete"){
+    ctx.fillStyle=B.fodera==="si"?shade(COLORI[B.bordo].c,.55):"rgba(0,0,0,.18)"; ctx.fillRect(x0,y0,x1-x0,y1-y0);
+    const s=26*sp; ctx.strokeStyle=col; ctx.lineWidth=4*sp; ctx.lineCap="round";
+    for(let d=-(y1-y0);d<(x1-x0)+(y1-y0);d+=s){
+      ctx.beginPath(); ctx.moveTo(x0+d,y0); ctx.lineTo(x0+d+(y1-y0),y1); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(x0+d,y1); ctx.lineTo(x0+d+(y1-y0),y0); ctx.stroke();
+    }
+  } else {
+    const q=64*sp, bc=COLORI[B.bordo].c;
+    ctx.fillStyle=bc; ctx.fillRect(x0,y0,x1-x0,y1-y0);
+    for(let y=y0;y<y1;y+=q) for(let x=x0;x<x1;x+=q){
+      const ring=(m,c)=>{ctx.fillStyle=c; ctx.fillRect(x+m,y+m,q-2*m,q-2*m);};
+      ring(3,shade(bc,-.15)); ring(6,col); ring(17*sp,bc); ring(24*sp,col);
+      ctx.fillStyle=dark; for(let i=0;i<4;i++){ const a=i*Math.PI/2; ctx.beginPath(); ctx.arc(x+q/2+Math.cos(a)*q*.3,y+q/2+Math.sin(a)*q*.3,1.8,0,Math.PI*2); ctx.fill(); }
+    }
+  }
+}
+function handles(ctx){
+  const met="#c9a24a", bord=COLORI[B.bordo].c;
+  const [x0,y0,x1]=BOX[B.modello], mid=(x0+x1)/2;
+  ctx.save(); ctx.lineCap="round";
+  if(B.manico==="corti"){
+    const L=x0+(B.modello==="shopper"?85:70), R=x1-(B.modello==="shopper"?85:70), h=B.modello==="baguette"?90:120;
+    ctx.strokeStyle=shade(bord,-.15); ctx.lineWidth=16;
+    ctx.beginPath(); ctx.moveTo(L,y0+4); ctx.bezierCurveTo(L,y0-h,R,y0-h,R,y0+4); ctx.stroke();
+    ctx.strokeStyle=bord; ctx.lineWidth=11; ctx.stroke();
+    ctx.setLineDash([3,6]); ctx.strokeStyle=shade(bord,-.3); ctx.lineWidth=2; ctx.stroke(); ctx.setLineDash([]);
+  } else if(B.manico==="tracolla"){
+    ctx.strokeStyle=shade(bord,-.15); ctx.lineWidth=12;
+    ctx.beginPath(); ctx.moveTo(x0+12,y0+10); ctx.bezierCurveTo(x0-40,40,x1+40,40,x1-12,y0+10); ctx.stroke();
+    ctx.strokeStyle=bord; ctx.lineWidth=8; ctx.stroke();
+  } else if(B.manico==="legno"){
+    const r=B.modello==="baguette"?70:85;
+    const g=ctx.createLinearGradient(mid-r,0,mid+r,0); g.addColorStop(0,"#7a5233"); g.addColorStop(.5,"#c08b5c"); g.addColorStop(1,"#7a5233");
+    ctx.strokeStyle=g; ctx.lineWidth=16; ctx.beginPath(); ctx.arc(mid,y0+6,r,Math.PI*1.08,Math.PI*1.92); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(mid-r*.95,y0+6-r*.25); ctx.lineTo(mid-r*.95,y0+8); ctx.moveTo(mid+r*.95,y0+6-r*.25); ctx.lineTo(mid+r*.95,y0+8); ctx.stroke();
+  } else {
+    ctx.strokeStyle=met; ctx.lineWidth=3;
+    for(let t=0,i=0;t<=1;t+=.02,i++){
+      const x=(1-t)**3*(x0+14)+3*(1-t)**2*t*(x0-30)+3*(1-t)*t*t*(x1+30)+t**3*(x1-14);
+      const y=(1-t)**3*(y0+12)+3*(1-t)**2*t*60+3*(1-t)*t*t*60+t**3*(y0+12);
+      ctx.beginPath(); ctx.ellipse(x,y,6,3.5,i%2?0:Math.PI/2,0,Math.PI*2); ctx.stroke();
+    }
+  }
+  ctx.restore();
+}
+function bDraw(ctx){
+  const W=800,H=600; trayBg(ctx,W,H);
+  const [x0,y0,x1,y1]=BOX[B.modello], col=COLORI[B.colore].c, bord=COLORI[B.bordo].c;
+  if(B.manico!=="corti") handles(ctx);
+  ctx.save(); ctx.fillStyle="rgba(0,0,0,.35)"; ctx.filter="blur(14px)"; ctx.beginPath(); ctx.ellipse((x0+x1)/2,y1+16,(x1-x0)/2,14,0,0,Math.PI*2); ctx.fill(); ctx.restore();
+  ctx.save(); bodyPath(ctx); ctx.clip();
+  texture(ctx,col,x0-10,y0,x1+10,y1+10);
+  const band=B.filato==="fettuccia"?40:30;
+  if(B.punto!=="granny"){
+    ctx.fillStyle=bord; ctx.fillRect(x0-10,y0,x1-x0+20,band);
+    ctx.strokeStyle=shade(bord,-.25); ctx.lineWidth=1.5;
+    for(let x=x0;x<x1;x+=9){ ctx.beginPath(); ctx.moveTo(x,y0+4); ctx.lineTo(x+4,y0+band-4); ctx.stroke(); }
+  }
+  const sh=ctx.createLinearGradient(x0,0,x1,0); sh.addColorStop(0,"rgba(0,0,0,.28)"); sh.addColorStop(.3,"rgba(255,255,255,.06)"); sh.addColorStop(.7,"rgba(0,0,0,0)"); sh.addColorStop(1,"rgba(0,0,0,.32)");
+  ctx.fillStyle=sh; ctx.fillRect(x0-10,y0,x1-x0+20,y1-y0+10);
+  if(B.filato==="rafia"){ ctx.globalAlpha=.12; ctx.fillStyle="#fff"; for(let y=y0;y<y1;y+=7){ ctx.fillRect(x0,y,x1-x0,1);} ctx.globalAlpha=1; }
+  ctx.restore();
+  bodyPath(ctx); ctx.strokeStyle=shade(col,-.4); ctx.lineWidth=2; ctx.stroke();
+  if(B.modello==="pochette"){
+    ctx.save(); ctx.beginPath(); ctx.moveTo(200,278); ctx.quadraticCurveTo(200,260,218,260); ctx.lineTo(582,260); ctx.quadraticCurveTo(600,260,600,278); ctx.lineTo(600,330); ctx.quadraticCurveTo(400,420,200,330); ctx.closePath();
+    ctx.clip(); texture(ctx,bord,190,255,610,420); ctx.fillStyle="rgba(0,0,0,.12)"; ctx.fillRect(190,255,420,170); ctx.restore();
+    ctx.beginPath(); ctx.moveTo(200,330); ctx.quadraticCurveTo(400,420,600,330); ctx.strokeStyle=shade(bord,-.4); ctx.lineWidth=2; ctx.stroke();
+    const g=ctx.createRadialGradient(395,370,2,400,375,14); g.addColorStop(0,"#d9a777"); g.addColorStop(1,"#7a5233");
+    ctx.fillStyle=g; ctx.beginPath(); ctx.arc(400,375,13,0,Math.PI*2); ctx.fill();
+  }
+  if(B.modello==="secchiello"){
+    ctx.strokeStyle=shade(bord,-.1); ctx.lineWidth=5; ctx.lineCap="round";
+    ctx.beginPath(); ctx.moveTo(280,y0+22); ctx.lineTo(520,y0+22); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(400,y0+22); ctx.quadraticCurveTo(380,y0+70,388,y0+110); ctx.moveTo(406,y0+22); ctx.quadraticCurveTo(430,y0+75,420,y0+112); ctx.stroke();
+    [[388,y0+116],[420,y0+118]].forEach(([x,y])=>{ ctx.fillStyle=bord; ctx.beginPath(); ctx.arc(x,y,7,0,Math.PI*2); ctx.fill(); });
+  }
+  if(B.manico==="corti") handles(ctx);
+}
+function bRender(){
+  store(KEY,B);
+  const c=bCalc(), M=MODELLI[B.modello];
+  fadeDraw($("b-cv"), bDraw);
+  $("b-dim").textContent=`${M.w}×${M.h} cm`;
+  const cap=`${M.label} in ${FILATI[B.filato].label.toLowerCase()} · ${PUNTI[B.punto].label.toLowerCase()} · ${COLORI[B.colore].label.toLowerCase()} con bordo ${COLORI[B.bordo].label.toLowerCase()} · ${MANICI[B.manico].label.toLowerCase()}${B.fodera==="si"?" · foderata":""}`;
+  $("b-cap").textContent=cap;
+  $("b-pKit").textContent=eur(c.pKit); $("b-pFin").textContent=eur(c.pFin);
+  $("b-tempi").textContent=`circa ${c.ore} ore · pronta in ${c.giorni} giorni`;
+  $("b-pSet").textContent="+ "+eur(PREZZO_SET); $("b-set").checked=B.set;
+  $("b-f-kit").checked=B.formula==="kit"; $("b-f-fin").checked=B.formula==="fin";
+  $("b-kit").innerHTML=c.R.map(r=>`<tr><td>${r.sw||""}${r.n}</td><td class="q">× ${r.q}</td></tr>`).join("");
+  const P=bPassi(c); $("b-tools").textContent=P.tools; $("b-steps").innerHTML=P.s.map(s=>`<li><span>${s}</span></li>`).join("");
+  const scelto=B.formula==="kit"?["Kit con schema",c.pKit]:["La fate voi",c.pFin];
+  const tot=scelto[1]+(B.set?PREZZO_SET:0);
+  const nome=$("b-nome").value.trim(), nota=$("b-nota").value.trim();
+  setMsg("b", `Ciao ${MARCHIO}! ${nome?"Sono "+nome+". ":""}Vorrei ordinare:\n\nBorsa ${cap} (${M.w}×${M.h} cm)\n${scelto[0]}: ${eur(scelto[1])}${B.formula==="fin"?` (pronta in circa ${c.giorni} giorni)`:""}${B.set?`\nOrecchini abbinati: ${eur(PREZZO_SET)}`:""}\nTotale: ${eur(tot)}${nota?"\n\nNote: "+nota:""}`);
+  bState={label:scelto[0]+(B.set?" + orecchini":""),price:tot}; updateBar();
+}
+function barState(){
+  if(TAB==="impara" && school){ const k=school.kit(); return {label:`Kit livello ${k.n}`, price:k.l.kit.prezzo, href:"#s-ordina"}; }
+  return {label:bState.label, price:bState.price, href:"#b-ordina"};
+}
+
+// ===================== SCUOLA: SIMBOLI DELL'UNCINETTO =====================
+// Simboli internazionali degli schemi: ovale = catenella, punto = maglia bassissima, × = maglia bassa,
+// T = mezza maglia alta, T con barretta = maglia alta, cerchio = anello magico.
+const GLOSS = {
+  gett:{abbr:"gett", nome:"Gettata", spiega:"Il filo passato sopra l'uncinetto, da dietro in avanti. È il gesto alla base di tutti i punti."},
+  cat:{abbr:"cat", nome:"Catenella", spiega:"Gettata e tira il filo dentro l'anello che hai sull'uncinetto."},
+  mbss:{abbr:"mbss", nome:"Maglia bassissima", spiega:"Entra nella maglia, gettata e tira dentro tutto in un solo passaggio. Serve per chiudere i giri e spostarsi."},
+  mb:{abbr:"mb", nome:"Maglia bassa", spiega:"Entra nella maglia, gettata e tira fuori (2 anelli). Gettata e passa dentro tutti e 2."},
+  mma:{abbr:"mma", nome:"Mezza maglia alta", spiega:"Gettata, entra nella maglia, gettata e tira fuori (3 anelli). Gettata e passa dentro tutti e 3."},
+  ma:{abbr:"ma", nome:"Maglia alta", spiega:"Gettata, entra, gettata e tira fuori (3 anelli). Gettata e passa 2 anelli, gettata e passa gli ultimi 2."},
+  am:{abbr:"am", nome:"Anello magico", spiega:"Un cerchio di filo dove lavori le prime maglie. Tirando la coda si chiude senza lasciare il buco."},
+  aum:{abbr:"aum", nome:"Aumento", spiega:"2 maglie nella stessa maglia del giro sotto: il lavoro si allarga."}
+};
+function sym(k,x,y,s=12,ang=0,cls="c-s"){
+  const t=`transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${ang.toFixed(1)})"`;
+  switch(k){
+    case "cat": return `<ellipse ${t} rx="${s*.55}" ry="${s*.3}" class="${cls}"/>`;
+    case "mbss": return `<ellipse ${t} rx="${s*.3}" ry="${s*.22}" class="${cls==="c-a"?"c-af":"c-f"}"/>`;
+    case "mb": return `<path ${t} d="M${-s*.4} ${-s*.4}L${s*.4} ${s*.4}M${s*.4} ${-s*.4}L${-s*.4} ${s*.4}" class="${cls}"/>`;
+    case "mma": return `<path ${t} d="M0 ${s*.6}V${-s*.6}M${-s*.38} ${-s*.6}H${s*.38}" class="${cls}"/>`;
+    case "ma": return `<path ${t} d="M0 ${s*.75}V${-s*.75}M${-s*.38} ${-s*.75}H${s*.38}M${-s*.28} ${s*.08}L${s*.28} ${-s*.18}" class="${cls}"/>`;
+    case "am": return `<circle ${t} r="${s*.5}" class="${cls}"/>`;
+    case "aum": return `<path ${t} d="M0 ${s*.5}L${-s*.42} ${-s*.5}M0 ${s*.5}L${s*.42} ${-s*.5}" class="${cls}"/>`;
+  }
+  return "";
+}
+const symMini = k => k==="gett" ? "" : `<svg viewBox="-10 -10 20 20" aria-hidden="true">${sym(k,0,0,k==="ma"?13:15)}</svg>`;
+const svgOpen = (W,H,label) => `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${label}">`;
+const arrowR = (x,y) => `<path d="M${x-8} ${y-5}L${x} ${y}L${x-8} ${y+5}" class="c-a"/>`;
+
+function chartChain(){
+  let s=svgOpen(400,110,"Schema: una fila di catenelle che parte dal nodo scorsoio");
+  s+=`<circle cx="22" cy="50" r="5" class="c-f"/><text x="22" y="84" text-anchor="middle" class="c-t">nodo</text>`;
+  for(let i=0;i<14;i++){ const x=46+i*22; s+=sym("cat",x,50,18,0,i===0?"c-a":"c-s");
+    if([0,4,9,13].includes(i)) s+=`<text x="${x}" y="84" text-anchor="middle" class="${i===0?"c-ta":"c-t"}">${i+1}</text>`; }
+  s+=`<path d="M46 22H360" class="c-a"/>${arrowR(368,22)}<text x="380" y="54" class="c-t" text-anchor="middle">… 60</text>`;
+  return s+"</svg>";
+}
+function chartRows(){
+  const dx=20, x0=84, W=x0+16*dx+44, H=250;
+  let s=svgOpen(W,H,"Schema a righe di maglia bassa, 15 maglie per riga");
+  for(let i=0;i<16;i++) s+=sym("cat",x0+i*dx,220,16,0,"c-s");
+  s+=`<text x="${x0+7.5*dx}" y="244" class="c-t" text-anchor="middle">16 catenelle di avvio</text>`;
+  [{y:186,dir:-1},{y:152,dir:1},{y:118,dir:-1},{y:84,dir:1}].forEach((r,ri)=>{
+    for(let i=0;i<15;i++) s+=sym("mb",x0+i*dx,r.y,12,0,(ri===0&&i===14)?"c-a":"c-s");
+    if(ri>0) s+=sym("cat", r.dir===1? x0-dx : x0+15*dx, r.y, 14, 90, "c-s");
+    const lx = r.dir===-1 ? x0+16*dx+(ri===0?-8:4) : x0-2*dx-4;
+    s+=`<text x="${lx}" y="${r.y+4}" class="c-ta" text-anchor="${r.dir===-1?"start":"end"}">${r.dir===-1?"← "+(ri+1):(ri+1)+" →"}</text>`;
+  });
+  s+=`<text x="${x0+7*dx}" y="44" class="c-t" text-anchor="middle">… continua così fino a 16–18 righe</text>`;
+  return s+"</svg>";
+}
+function chartRound(n=5){
+  const cx=150, cy=150; let s=svgOpen(440,300,`Schema in tondo: ${n} giri di maglia bassa con aumenti`);
+  s+=sym("am",cx,cy,16,0,"c-s");
+  for(let i=1;i<=n;i++){
+    const r=12+i*24, cnt=6*i;
+    s+=`<circle cx="${cx}" cy="${cy}" r="${r}" class="c-g"/>`;
+    for(let j=0;j<cnt;j++){
+      const a=-90+(j+.5)*360/cnt, rad=a*Math.PI/180, inc=i>=2 && (j%i)>=i-2;
+      s+=sym("mb",cx+r*Math.cos(rad),cy+r*Math.sin(rad),i===1?11:Math.min(11,2*Math.PI*r/cnt*.7),a+90,inc?"c-a":"c-s");
+    }
+    s+=`<text x="318" y="${cy-r+4}" class="c-t"><tspan class="c-ta">G${i}</tspan> · ${cnt} maglie</text>`;
+  }
+  return s+"</svg>";
+}
+function chartGranny(){
+  const c=150; let s=svgOpen(300,300,"Schema del quadrato della nonna, 2 giri");
+  s+=sym("am",c,c,18,0,"c-s");
+  const sides=[[0,-1],[1,0],[0,1],[-1,0]], ang=v=>Math.atan2(v[1],v[0])*180/Math.PI, P=(v,d)=>[c+v[0]*d,c+v[1]*d];
+  sides.forEach((n,k)=>{
+    const t=[-n[1],n[0]], n2=sides[(k+1)%4];
+    const dg=[(n[0]+n2[0])/Math.SQRT2,(n[1]+n2[1])/Math.SQRT2], td=[-dg[1],dg[0]];
+    for(let q=-1;q<=1;q++){ const [x,y]=P(n,36); s+=sym("ma",x+t[0]*q*9,y+t[1]*q*9,18,ang(n)+90,"c-s"); }
+    for(const q of [-1,1]){ const [x,y]=P(dg,52); s+=sym("cat",x+td[0]*q*7,y+td[1]*q*7,12,ang(dg)+90,"c-s"); }
+    for(const e of [-1,1]) for(let q=-1;q<=1;q++){ const [x,y]=P(n,86), off=e*56+q*9; s+=sym("ma",x+t[0]*off,y+t[1]*off,18,ang(n)+90,"c-a"); }
+    { const [x,y]=P(n,92); s+=sym("cat",x,y,12,ang(n)+90,"c-a"); }
+    for(const q of [-1,1]){ const [x,y]=P(dg,124); s+=sym("cat",x+td[0]*q*7,y+td[1]*q*7,12,ang(dg)+90,"c-a"); }
+  });
+  return s+"</svg>";
+}
+function figPochette(){
+  let s=svgOpen(390,270,"Rettangolo di 24 per 40 centimetri piegato in tre per fare la pochette");
+  s+=`<rect x="40" y="20" width="120" height="200" rx="4" class="c-fill"/>`;
+  s+=`<path d="M40 70H160M40 145H160" class="c-d"/>`;
+  s+=`<ellipse cx="100" cy="38" rx="8" ry="3.5" class="c-a"/>`;
+  s+=`<text x="168" y="49" class="c-t">pattina · 10 cm</text><text x="168" y="111" class="c-t">retro · 15 cm</text><text x="168" y="186" class="c-t">davanti · 15 cm</text>`;
+  s+=`<text x="100" y="240" class="c-t" text-anchor="middle">24 cm</text><path d="M40 228H160" class="c-g"/>`;
+  s+=`<path d="M30 212C8 196 8 162 30 150" class="c-a"/><path d="M22 148L31 149L28 158" class="c-a"/>`;
+  s+=`<rect x="268" y="140" width="96" height="60" rx="5" class="c-fill"/><path d="M268 140H364V168Q316 192 268 168Z" class="c-fill"/><circle cx="316" cy="176" r="5" class="c-af"/>`;
+  s+=`<text x="316" y="222" class="c-ta" text-anchor="middle">pochette finita</text>`;
+  return s+"</svg>";
+}
+function figSecchiello(){
+  let s=svgOpen(412,270,"Fondo rotondo da 18 centimetri e corpo alto 20 centimetri con passanti");
+  s+=`<circle cx="92" cy="128" r="62" class="c-fill"/>${[16,30,44].map(r=>`<circle cx="92" cy="128" r="${r}" class="c-g"/>`).join("")}${sym("am",92,128,12)}`;
+  s+=`<text x="92" y="214" class="c-t" text-anchor="middle">fondo Ø 18 cm</text><text x="92" y="230" class="c-t" text-anchor="middle">giri con aumenti</text>`;
+  s+=`<rect x="206" y="58" width="140" height="140" rx="4" class="c-fill"/>`;
+  for(let x=216;x<340;x+=14) s+=sym("cat",x,78,10,0,"c-a");
+  s+=`<path d="M206 198H346" class="c-a" style="stroke-width:4"/>`;
+  s+=`<path d="M276 78C268 104 262 120 266 138M282 78C292 106 296 120 290 140" class="c-s"/><circle cx="266" cy="142" r="4" class="c-af"/><circle cx="290" cy="144" r="4" class="c-af"/>`;
+  s+=`<path d="M360 58V198" class="c-g"/><text x="366" y="132" class="c-t">20 cm</text>`;
+  s+=`<text x="206" y="48" class="c-ta">giro dei passanti</text><text x="276" y="220" class="c-ta" text-anchor="middle">giro dello spigolo</text><text x="276" y="236" class="c-t" text-anchor="middle">(solo filo dietro)</text>`;
+  return s+"</svg>";
+}
+
+// ===================== SCUOLA: LEZIONI =====================
+const LEZIONI = [
+  {id:"b1", titolo:"Il primo punto: la catenella", progetto:"Progetto: un cordino di 60 catenelle, da usare come braccialetto o portachiavi.", tempo:"20 min", diff:1,
+   serve:["Un gomitolo di cotone grosso e chiaro: le maglie si vedono meglio","Uncinetto da 5 mm","Forbici"],
+   parole:["gett","cat"], fig:chartChain, figCap:"Lo schema si legge da sinistra a destra. Ogni ovale è una catenella.",
+   passi:[
+    {t:"Fai il **nodo scorsoio**: forma un cerchio con il filo, tira dentro il filo del gomitolo come un'asola e infila l'uncinetto. Stringi senza strozzare.", ok:"Il nodo deve scorrere sull'uncinetto. Se non si muove è troppo stretto."},
+    {t:"Tieni l'uncinetto come una matita, nella mano destra. Il filo che arriva dal gomitolo passa sopra l'indice sinistro: con quel dito decidi quanto è teso."},
+    {t:"Fai una **gettata**: porta il filo sopra l'uncinetto, da dietro in avanti."},
+    {t:"Tira la gettata dentro l'anello che hai sull'uncinetto. Hai fatto 1 [cat]."},
+    {t:"Ripeti i passi 3 e 4. Ogni 10 catenelle fermati e contale.", ok:"L'anello che resta sull'uncinetto e il nodo scorsoio non si contano."},
+    {t:"Arriva a 60 catenelle. Taglia il filo lasciando 10 cm, fai una gettata e tira fuori tutto il filo: il lavoro è chiuso."}],
+   errori:["Le catenelle sono strette e l'uncinetto non entra: tieni il filo più morbido sull'indice, oppure usa un uncinetto più grande.","Le catenelle hanno misure diverse: all'inizio succede a tutti. Dopo 3–4 cordini diventano regolari.","Il filo si sfila dall'uncinetto: fai la gettata sempre nello stesso verso, da dietro in avanti."],
+   kit:{prezzo:6.9, cont:"cotone grosso, uncinetto 5 mm, scheda stampata"}},
+  {id:"b2", titolo:"Righe di maglia bassa", progetto:"Progetto: un sottobicchiere quadrato di 10×10 cm.", tempo:"1 ora", diff:2,
+   serve:["Cotone grosso chiaro","Uncinetto da 5 mm","Ago da lana con la punta arrotondata","2 marcapunti (vanno bene anche 2 graffette)"],
+   parole:["cat","mb"], fig:chartRows, figCap:"Si parte dal basso. La riga 1 va da destra a sinistra, la riga 2 torna indietro, e così via. In colore la prima maglia: va nella 2ª catenella dall'uncinetto.",
+   passi:[
+    {t:"Fai il nodo scorsoio e 16 [cat]."},
+    {t:"Conta 2 catenelle partendo dall'uncinetto e infila l'uncinetto nella seconda. La prima non si lavora."},
+    {t:"Fai una gettata e tirala fuori: ora hai 2 anelli sull'uncinetto."},
+    {t:"Fai un'altra gettata e passala dentro tutti e 2 gli anelli. Hai fatto 1 [mb]."},
+    {t:"Lavora 1 [mb] in ogni catenella fino alla fine della riga.", ok:"Conta: devi avere **15 maglie basse**. Metti un marcapunti nella prima e uno nell'ultima."},
+    {t:"Fai 1 [cat] e gira il lavoro, come si gira la pagina di un libro. Questa catenella serve solo a salire e non si conta."},
+    {t:"Lavora 1 [mb] in ogni maglia della riga sotto, infilando l'uncinetto sotto i 2 fili a forma di V che vedi in alto.", ok:"A ogni riga conta di nuovo: sempre **15**. Se ne hai 14 hai saltato l'ultima maglia, quella con il marcapunti. Se ne hai 16 hai lavorato anche nella catenella per girare."},
+    {t:"Ripeti i passi 6 e 7 finché il lavoro è un quadrato: circa 16–18 righe."},
+    {t:"Taglia il filo a 15 cm e chiudi come nel livello 1. Con l'ago da lana passa la coda dentro le maglie per 3–4 cm e taglia il resto."}],
+   errori:["Il quadrato si stringe e diventa un trapezio: stai perdendo l'ultima maglia della riga. Guarda dove sta il marcapunti.","Il quadrato si allarga: stai lavorando anche nella catenella per girare. Saltala sempre.","Non trovi le maglie: usa un filato liscio e chiaro, mai peloso o scuro all'inizio."],
+   kit:{prezzo:8.9, cont:"cotone grosso, uncinetto 5 mm, ago da lana, 2 marcapunti, scheda stampata"}},
+  {id:"b3", titolo:"Il cerchio: anello magico e aumenti", progetto:"Progetto: un sottobicchiere tondo di circa 10 cm.", tempo:"1 ora", diff:2,
+   serve:["Cotone in 2 colori","Uncinetto da 5 mm","Marcapunti","Ago da lana"],
+   parole:["am","mb","aum","mbss"], leg:["am","mb"], fig:()=>chartRound(5), figCap:"Ogni anello dello schema è un giro. In colore gli aumenti: 2 maglie basse nella stessa maglia.",
+   passi:[
+    {t:"Fai un [am]: avvolgi il filo intorno a 2 dita, infila l'uncinetto sotto il filo, prendi il filo del gomitolo e tiralo fuori. Fai 1 [cat] per fermarlo."},
+    {t:"**Giro 1**: lavora 6 [mb] dentro l'anello. Tira la coda: il cerchio si chiude.", ok:"6 maglie."},
+    {t:"Metti un marcapunti nella prima maglia del giro. Si lavora a spirale: alla fine del giro non si chiude, si continua nella maglia con il marcapunti e poi lo si sposta in avanti."},
+    {t:"**Giro 2**: fai 1 [aum] in ogni maglia, cioè 2 [mb] nella stessa maglia.", ok:"12 maglie."},
+    {t:"**Giro 3**: *1 [mb], 1 [aum]*, ripeti 6 volte.", ok:"18 maglie. Quello che sta tra gli asterischi * * è la parte da ripetere."},
+    {t:"**Giro 4**: *2 [mb], 1 [aum]*, ripeti 6 volte.", ok:"24 maglie."},
+    {t:"**Giro 5**: *3 [mb], 1 [aum]*, ripeti 6 volte.", ok:"30 maglie. La regola: a ogni giro 1 maglia bassa in più prima dell'aumento, e 6 maglie in più in totale."},
+    {t:"Chiudi con 1 [mbss] nella maglia dopo, taglia e nascondi il filo con l'ago."}],
+   errori:["Il cerchio fa le onde: hai fatto troppi aumenti. Conta il giro.","Il cerchio diventa una ciotola: mancano degli aumenti. Rifai il giro contando.","Hai perso il conto: per questo serve il marcapunti. Tienilo sempre sulla prima maglia del giro."],
+   kit:{prezzo:8.9, cont:"cotone in 2 colori, uncinetto 5 mm, 4 marcapunti, ago da lana, scheda stampata"}},
+  {id:"b4", titolo:"Maglia alta e quadrato della nonna", progetto:"Progetto: un quadrato della nonna di 2 giri, il mattoncino di tante borse.", tempo:"1 ora e mezza", diff:3,
+   serve:["Cotone medio in 2 colori","Uncinetto da 4 mm","Ago da lana"],
+   parole:["ma","am","cat","mbss"], leg:["am","ma","cat"], fig:chartGranny, figCap:"Giro 1 in nero, giro 2 in colore. Le maglie alte puntano verso l'esterno; gli ovali agli angoli sono le catenelle.",
+   passi:[
+    {t:"Prova la [ma] su una fila di catenelle: fai una gettata, entra nella catenella, gettata e tira fuori. Hai 3 anelli sull'uncinetto."},
+    {t:"Gettata e passa dentro 2 anelli. Gettata e passa dentro gli ultimi 2. Hai fatto 1 [ma].", ok:"Una maglia alta è alta più o meno come 2 maglie basse."},
+    {t:"**Giro 1**: fai un [am], poi 3 [cat]: valgono come la prima [ma]."},
+    {t:"Lavora 2 [ma] nell'anello, poi 2 [cat]. Hai il primo gruppo e il primo angolo."},
+    {t:"*3 [ma] nell'anello, 2 [cat]*, ripeti 3 volte. Tira la coda per chiudere l'anello."},
+    {t:"Chiudi il giro con 1 [mbss] nella terza delle 3 catenelle iniziali.", ok:"4 gruppi da 3 maglie alte e 4 angoli da 2 catenelle."},
+    {t:"**Giro 2**: fai 1 [mbss] su ognuna delle 2 [ma] successive e 1 dentro l'angolo: così arrivi nello spazio dell'angolo."},
+    {t:"Nel primo angolo: 3 [cat], 2 [ma], 2 [cat], 3 [ma]. Poi 1 [cat]."},
+    {t:"In ognuno degli altri 3 angoli: 3 [ma], 2 [cat], 3 [ma], poi 1 [cat]. Chiudi con 1 [mbss] nella terza catenella iniziale.", ok:"8 gruppi da 3 maglie alte: 2 per ogni angolo."}],
+   errori:["Il quadrato si arriccia: le catenelle negli angoli sono troppo strette. Falle più morbide.","Il quadrato è storto: hai saltato un angolo. Conta i gruppi: 4 nel primo giro, 8 nel secondo.","Le maglie alte vengono basse e storte: ricordati la gettata prima di entrare nella maglia."],
+   kit:{prezzo:9.9, cont:"cotone in 2 colori, uncinetto 4 mm, ago da lana, scheda stampata"}},
+  {id:"b5", titolo:"La prima borsetta: la pochette", progetto:"Progetto: pochette di 24×15 cm con pattina e bottone.", tempo:"6–8 ore", diff:3,
+   serve:["Cotone per borse (3 gomitoli da 50 g)","Uncinetto da 4 mm","1 bottone","Ago da lana","Marcapunti","Metro da sarta"],
+   parole:["cat","mb","mbss"], leg:[], fig:figPochette, figCap:"Un solo rettangolo a maglia bassa, piegato in tre: davanti, retro e pattina.",
+   passi:[
+    {t:"Fai un campione: 10 cm di catenelle e 6 righe di [mb]. Serve a capire quante catenelle fanno 24 cm con il tuo filo e la tua mano."},
+    {t:"Avvia le catenelle per 24 cm, più 1 per girare."},
+    {t:"Lavora righe di [mb] come nel livello 2, finché il rettangolo misura 40 cm.", ok:"Misura ogni 10 righe, con il lavoro appoggiato sul tavolo senza tirarlo."},
+    {t:"Fai l'asola: quando mancano 3 righe alla fine, lavora fino al centro della riga, fai 3 [cat], salta 3 maglie e continua."},
+    {t:"Nella riga dopo lavora 3 [mb] dentro lo spazio delle 3 catenelle. Finisci le ultime righe."},
+    {t:"Piega in su i primi 15 cm: diventano il davanti della pochette."},
+    {t:"Chiudi i due lati con l'ago da lana, a punti piccoli, oppure con [mbss] prendendo i due strati insieme."},
+    {t:"Piega in giù la pattina, segna dove arriva l'asola e cuci lì il bottone."},
+    {t:"Nascondi tutti i fili. Se vuoi una tracolla, fai una catenella lunga 110 cm e lavoraci sopra 1 riga di [mb]."}],
+   errori:["Il rettangolo si allarga o si stringe: conta le maglie a ogni riga, come nel livello 2.","Il bottone non passa: rifai l'asola con 4 catenelle invece di 3.","La pochette è molle: usa un uncinetto mezzo numero più piccolo, le maglie vengono più fitte."],
+   kit:{prezzo:16.9, cont:"3 gomitoli di cotone per borse, uncinetto 4 mm, bottone in legno, ago, marcapunti, schema"}},
+  {id:"b6", titolo:"La borsa a secchiello", progetto:"Progetto: secchiello di Ø 18 cm, alto 20 cm, con cordino e manico.", tempo:"10–12 ore", diff:4,
+   serve:["Cotone per borse (4 gomitoli da 50 g)","Uncinetto da 4 mm","Marcapunti","Ago da lana","Metro da sarta"],
+   parole:["am","mb","aum","cat","mbss"], leg:["am","cat"], fig:figSecchiello, figCap:"Il fondo si fa come il cerchio del livello 3, poi si sale dritti.",
+   passi:[
+    {t:"**Fondo**: lavora il cerchio come nel livello 3 e continua con la stessa regola: a ogni giro 1 [mb] in più prima dell'[aum]."},
+    {t:"Fermati quando il fondo misura 18 cm di diametro.", ok:"Il numero di maglie è sempre un multiplo di 6, per esempio 84 o 90. Scrivilo: è il numero di maglie di tutto il corpo."},
+    {t:"**Giro dello spigolo**: 1 [mb] in ogni maglia, prendendo solo il filo dietro. Il bordo del fondo si piega e la borsa prende forma."},
+    {t:"**Corpo**: continua a spirale con 1 [mb] in ogni maglia, senza aumenti.", ok:"Conta ogni 5 giri: le maglie devono restare sempre quelle del fondo."},
+    {t:"Quando la borsa è alta 18 cm, fai il **giro dei passanti**: *2 [mb], 1 [cat], salta 1 maglia*, ripeti fino alla fine del giro."},
+    {t:"Nel giro dopo lavora 1 [mb] in ogni maglia e 1 [mb] dentro ogni spazio di catenella.", ok:"Sei tornata al numero di maglie del fondo."},
+    {t:"Lavora altri 4 giri di [mb] per il bordo e chiudi con 1 [mbss]."},
+    {t:"**Cordino**: fai una catenella di 70 cm, lavoraci sopra 1 riga di [mbss] e infilalo nei passanti."},
+    {t:"**Manico**: fai una striscia di [mb] larga 6 maglie e lunga 50 cm. Cucila all'interno, su due lati opposti."}],
+   errori:["Il fondo fa le onde: fermati con gli aumenti un giro prima.","Il corpo si allarga: stai facendo aumenti senza volerlo. Conta ogni 5 giri.","La borsa gira un po' a spirale: con la lavorazione a spirale è normale, si sistema con il vapore a fine lavoro."],
+   kit:{prezzo:24.9, cont:"4 gomitoli di cotone per borse, uncinetto 4 mm, marcapunti, ago, schema completo"}}
+];
+const tok = k => GLOSS[k] ? `<abbr class="g" title="${GLOSS[k].nome}">${symMini(k)}${GLOSS[k].abbr}</abbr>` : k;
+
+// ===================== AVVIO =====================
+setupHeader();
+bForm(); bRender();
+["b-f-kit","b-f-fin"].forEach(id=>$(id).addEventListener("change",e=>{B.formula=e.target.value; bRender();}));
+$("b-set").addEventListener("change",e=>{B.set=e.target.checked; bRender();});
+["b-nome","b-nota"].forEach(id=>$(id).addEventListener("input",bRender));
+school = initSchool({
+  key:KEY, lessons:LEZIONI,
+  intro:"6 livelli gratuiti, dal primo punto alla borsa a secchiello. Ogni passo ha il suo conteggio: se torna, sei sulla strada giusta.",
+  fmt:t=>t.replace(/\[(\w+)\]/g,(m,k)=>tok(k)),
+  term:k=>`<span class="term" title="${GLOSS[k].spiega}">${symMini(k)}<b>${GLOSS[k].abbr}</b> ${GLOSS[k].nome}</span>`,
+  legend:l=>{ const ks=(l.leg||l.parole).filter(k=>k!=="gett"); return ks.length?`<span class="legend">${ks.map(k=>`<span>${symMini(k)}${GLOSS[k].nome}</span>`).join("")}</span>`:""; },
+  glossTitle:"Le parole dell'uncinetto", glossSub:"Il simbolo è quello che trovi negli schemi di tutto il mondo; l'abbreviazione è quella dei giornalini italiani.",
+  glossRows:()=>Object.entries(GLOSS).map(([k,g])=>`<tr><td class="sym">${symMini(k)||"–"}</td><td><b>${g.abbr}</b></td><td><b>${g.nome}</b><br><span class="muted">${g.spiega}</span></td></tr>`).join("")
+});
+setupTabs(KEY);
+registerSW();
+
+</script>
+
+</body>
+</html>

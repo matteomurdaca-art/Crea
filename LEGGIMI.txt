@@ -1,22 +1,13 @@
-CREA IL TUO GIOIELLO + CREA LA TUA BORSA - due app installabili
+AGGIORNAMENTO DA TELEFONO - due app, senza cartelle
 
-Prima di pubblicare: in gioielli/index.html e borse/index.html cerca
-"DA PERSONALIZZARE" (con Blocco note) e cambia MARCHIO e WHATSAPP.
-Sotto ci sono anche prezzi di pietre e filati, tariffa oraria, ecc.
+1. Estrai questo zip sul telefono (app File -> tieni premuto sullo zip -> Estrai).
+2. Apri github.com/matteomurdaca-art/Crea -> Add file -> Upload files.
+3. Seleziona TUTTI i file estratti (anche quelli con lo stesso nome: li sostituiscono) -> Commit changes.
+4. Aspetta 1-2 minuti. I due link sono:
+   https://matteomurdaca-art.github.io/Crea/             gioielli
+   https://matteomurdaca-art.github.io/Crea/borse.html   borse
 
-Pubblicazione gratuita su GitHub Pages:
-1. Crea un account su github.com (gratis).
-2. "New repository" -> nome: crea -> Public -> Create.
-3. "uploading an existing file" -> trascina TUTTO il contenuto di questa
-   cartella (index.html, LEGGIMI.txt e le cartelle gioielli e borse) -> Commit changes.
-4. Settings -> Pages -> Source: Deploy from a branch -> Branch: main, / (root) -> Save.
-5. Dopo 1-2 minuti hai tre link:
-   https://TUONOME.github.io/crea/            pagina con le due app
-   https://TUONOME.github.io/crea/gioielli/   app gioielli
-   https://TUONOME.github.io/crea/borse/      app borse
+Per installarle: apri ogni link in Chrome -> menu tre puntini -> Installa app.
 
-Installazione sul telefono (ogni app si installa da sola, con la sua icona):
-- Android (Chrome): apri il link -> menu tre puntini -> "Installa app".
-- iPhone (Safari): apri il link -> Condividi -> "Aggiungi alla schermata Home".
-
-Per aggiornare: ricarica i file su GitHub e in sw.js cambia VERSIONE (es. v4).
+Per cambiare nome del marchio, WhatsApp e prezzi: in index.html e borse.html
+cerca "DA PERSONALIZZARE".

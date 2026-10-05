@@ -1,10 +1,10 @@
 {
-  "id": "./",
-  "name": "Crea il tuo gioiello",
-  "short_name": "Gioielli",
+  "id": "./borse.html",
+  "name": "Crea la tua borsa",
+  "short_name": "Borse",
   "lang": "it",
-  "description": "Configura bracciali, collane e orecchini e impara a farli con lezioni gratuite a livelli.",
-  "start_url": "./",
+  "description": "Configura la tua borsa a uncinetto e impara a farla con schemi facili e gratuiti a livelli.",
+  "start_url": "./borse.html",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
@@ -12,17 +12,17 @@
   "theme_color": "#2a2130",
   "icons": [
     {
-      "src": "icon-192.png",
+      "src": "borse-icon-192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "icon-512.png",
+      "src": "borse-icon-512.png",
       "sizes": "512x512",
       "type": "image/png"
     },
     {
-      "src": "icon-maskable-512.png",
+      "src": "borse-icon-maskable-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
